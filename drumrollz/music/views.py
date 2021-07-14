@@ -129,7 +129,6 @@ def index(request):
             })
         else:
             return render(request, 'music/index.html', {'object_list': albums})
-
  
 def login_user(request):
     if request.method == "POST":
@@ -142,7 +141,8 @@ def login_user(request):
                 login(request, user)
                 albums = Album.objects.filter(user=request.user)
 
-                return render(request, 'music/index.html', {'albums': albums})
+                # Here a profile/Dashboard will be included later on.
+                return render(request, 'music/index.html', {'object_list': albums})
             else:
                 return render(request, 'music/login.html', {'error_message': "username or password entered does not match"})
         else:
