@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
+from django.contrib import messages
 from .models import Album, Song
 
 # redirect
@@ -21,7 +22,8 @@ def album_create(request):
             album = form.save(commit=False)
             album.user = request.user
             album.album_logo = request.FILES['album_logo']
-            file_type = album.album_logo.url.split('.')[-1].lower()
+            file_type = album.album_logo.url.split('.')[-1]
+            file_type = file_type.lower()
             
             if file_type not in IMAGE_FILE_TYPES:
                 context = {
@@ -29,15 +31,16 @@ def album_create(request):
                     "form": form,
                     "error_message": "Image Type Not Supported",
                 }
-                return render(request, 'music/form_template.html', context)
-            album.save()
+                return render(request, 'music/album_create.html', context)
             
+            album.save()
             return render(request, 'music/detail.html', {'album': album})
-            context = {
+            
+        context = {
                 "form": form,
             } 
 
-            return render(request, 'music/form_template.html', context)
+        return render(request, 'music/album_create.html', context)
 
 
 def song_create(request, album_id):
@@ -87,6 +90,7 @@ def album_delete(request, album_id):
     album.delete()
     albums = Album.objects.filter(user=request.user)
 
+    # surprising that here object_list is not causing issue!
     return render(request, 'music/index.html', {'albums': albums})
 
 def song_delete(request, album_id, song_id):
@@ -186,7 +190,7 @@ def register(request):
             if user.is_active:
                 login(request, user)
                 albums = Album.objects.filter(user=request.user)
-                return render(request, 'music/index.html', {'albums': albums})
+                return render(request, 'music/index.html', {'object_list': albums})
     
     context = {
         "form": form,
