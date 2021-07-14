@@ -17,7 +17,7 @@ ul.errorlist > li {
 #navbar-brand{ 
     display: flex;
     background: #252839;
-    -webkit-text-stroke: 0.3vw #01fe87;
+    -webkit-text-stroke: 0.3vw #ffff66;
     text-decoration:solid; 
     font-family: Princess Sofia, cursive; 
     font-size: xx-large; 
@@ -25,9 +25,9 @@ ul.errorlist > li {
 }
 #navbar-brand::before
 {
-    color: #01fe87;
+    color: #ffff66;
     -webkit-text-stroke: 0vw #383d52;
-    border-right: 2px solid #01fe87;
+    border-right: 2px solid #ffff66;
     overflow: hidden;
     animation: animate 6s linear infinite;
 }
