@@ -1,0 +1,45 @@
+<!-- This is the html file for creating model forms of new albums to be added-->
+{% extends 'music/base.html' %}
+{% block template_title %}Add a New Album{% endblock %}
+{% block albums_active %}active{% endblock %}
+
+{% block template_body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3 id="album_detail">Album Details</h3>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" action="" method="POST" enctype="multipart/form-data" style = "color: #9fe2bf;">
+                        {% csrf_token %}
+                        {% include 'music/form_template.html' %}
+                        <div class="form-group" id="formGroup">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h3>About Drumrollz:</h3>
+                <ul>
+                    <li>The only platform where new artists get sponsorship and recognition for their albums based on a transparent and open market-exchange system using blockchain technology</li>. 
+                    <li>The sponsors get a token based on their investment in the artist's sponsorship. The return on these token can be massive if the album released hits the platinum record.</li>
+                    <li>These tokens can be traded on the market-exchange in a real time basis based on audience interest in the artist's work and progress made in album production</li>
+                    <li>At Drumrollz, music is not just passion. It is a way of life.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'music/base.html' %}
+{% block albums_active %}active{% endblock %}
+
+{% block template_body %}
+<div class="album-container container-fluid">
+
+    <!-- Albums -->
+    <div class="row">
+        <div class="col-sm-14">
+            <h1 id="Sponsorships">Sponsorships of {{ user.username }}</h1> 
+        </div>
+        {% if object_list %}
+            {% for album in object_list %} 
+            <!-- here object_list is the default variable for context_object_name which can be changed in Views-->
+                <div class="col-sm-4 col-lg-2">
+                    <div class="img-thumbnail">
+                        <a href="{% url 'music:detail' album.id %}">
+                            <img id="album_logo_index" src="{{ album.album_logo.url}}" class="img-responsive">
+                        </a>
+                        <div class="caption" id="caption">
+                            <h5 id="album_title">{{ album.album_title }}</h5>
+                            <h6 id = "album_artist">{{ album.artist }}</h6>
+
+                            <!-- View Details -->
+                            <a href="{% url 'music:detail' album.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete Album -->
+                            <form action="{% url 'music:album_delete' album.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="album_id" value="{{ album.id }}" />
+                                <button type="submit" class="btn btn-default btn-lg">
+                                    <span class="far fa-trash-alt"></span>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- If user searches and there are songs -->
+    {% if songs %}
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Songs</h3>
+            </div>
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Song Title</th>
+                                    <th>Artist</th>
+                                    <th>Audio</th>
+                                    <th>Album</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for song in songs %}
+                                    <tr>
+                                        <td>{{ song.song_title }}</td>
+                                        <td>{{ song.album.artist }}</td>
+                                        <td>
+                                            <a target="_blank" href="{{ songs.audio_file.url }}">
+                                                <button type="button" class="btn btn-success btn-xs">
+                                                    <i class="bi bi-play-circle"></i>Play
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'music:detail' song.album.id %}">
+                                                <img id="album_logo_detail" src = "{{ album.album_logo.url}}" class="img-responsive">
+                                            </a>
+                                            <a href="{% url 'music:detail' song.album.id %}">{{ song.album.album_title }}</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+#basePage{
+    background-image: url("images/background.jpg");
+}
+
+#landingPage{
+    background-image: url("images/landingpage.jpg");
+}
+
+ul.errorlist {
+    padding-left: 0;
+}
+
+ul.errorlist > li {
+    list-style: none;
+}
+
+#navbar-brand{ 
+    display: flex;
+    background: #252839;
+    -webkit-text-stroke: 0.3vw #01fe87;
+    text-decoration:solid; 
+    font-family: Princess Sofia, cursive; 
+    font-size: xx-large; 
+    text-shadow: 1px 1px 1px;
+}
+#navbar-brand::before
+{
+    color: #01fe87;
+    -webkit-text-stroke: 0vw #383d52;
+    border-right: 2px solid #01fe87;
+    overflow: hidden;
+    animation: animate 6s linear infinite;
+}
+@keyframes animate{
+    0%, 10%, 100%
+    {
+        width: 0;
+    }
+
+    70%, 90%
+    {
+        width: 100%;
+    }
+}
+
+#nav-link{
+    color:white; 
+    text-decoration: none; 
+    font-size: x-large;
+}
+
+#navbarSupportedContent{
+    margin-bottom: 10px;
+}
+
+#formGroup{
+    padding: 4px; 
+    font-size: 120%; 
+    font-weight:600;
+}
+
+#caption{
+    background-color: #9fe2bf;
+}
+
+#album_create{
+    color:white; 
+    text-decoration: none; 
+    font-size: x-large;
+}
+
+#logout{
+    color:white; 
+    text-decoration: none; 
+    font-size: x-large;
+}
+
+#sponsorships{
+    color: #9fe2bf; 
+    text-decoration: none; 
+    font-size: 30px;
+}
+
+#album_title{
+    color: black;
+}
+
+#album_artist{
+    color: black;
+}
+
+#album_logo_index{
+    width: 195px; 
+    height: 125px;
+}
+
+#album_detail{
+    color: #9fe2bf;
+}
+
+#album_logo_detail{
+    width:700px; 
+    height:300px;
+}
+
+#song_title{
+    color: black;
+}

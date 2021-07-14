@@ -1,0 +1,61 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'music/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block template_title %}Drumrollz{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="shortcut icon" type="image/png/jpg" href="{% static 'favicon.ico' %}" />
+  <script src="https://kit.fontawesome.com/613a89ef92.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Princess+Sofia&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'music/js/main.js' %}"></script>
+</head>
+
+<body id="landingPage">
+  <!-- Navbar -->
+  <nav class="navbar  navbar-expand-lg navbar-dark bg-dark">
+
+    <!-- Container Wrapper -->
+    <div class="container-fluid">
+      <!-- Toggle button -->
+      <button type="button" class="navbar-toggler" data-md-toggle="collapse" data-md-target="#navbarSupportedContent"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span id="toolbar" class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Brand -->
+      <a id="navbar-brand" class="navbar-brand" href="{% url 'music:login_user' %}">Drumrollz</a>
+
+      <!-- Navbar Items -->
+      <div class="nav nav-pills">
+
+        <!-- Items -->
+        <ul class="nav justify-content-end">
+
+          <li class="nav-item">
+            <a class="nav-link {% block register_active %}{% endblock %}" href="{% url 'music:register' %}">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% block login_active %}{% endblock %}" href="{% url 'music:login_user' %}">Log In</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+  </nav>
+  {% block template_body %}
+  {% endblock %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

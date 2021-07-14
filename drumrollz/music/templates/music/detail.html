@@ -1,0 +1,84 @@
+{% extends 'music/base.html' %}
+{% block template_title %}Album Details{% endblock %}
+
+{% block template_body %}
+<div class="container-fluid songs-container">
+
+    <div class="row">
+        
+        <!-- Left Side Album Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="card">
+                <div class="card-body" id="caption">
+                    <a href="{% url 'music:detail' album.id %}">
+                        {% if album.album_logo %}
+                            <img id="album_logo_detail" src = "{{ album.album_logo.url}}" class="img-thumbnail">
+                        {% else %}
+                            <h3>Image not found</h3>
+                        {% endif %}
+                    </a>
+                    <h1 id="album_title">{{ album.album_title }}</h1>
+                    <h2>{{ album.genre }}</h2>
+                    <h2 id="album_artist">{{ album.artist }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ride Side Song Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="{% url 'music:detail' album.id %}">View All</a></li>
+            </ul>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3>All Songs</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{error_message}}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Audio</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for song in album.song_set.all %}
+                            <tr>
+                                <td><h6 id="song_title" style="color: black;">{{ song.song_title }}</h6></td>
+                                <td>
+                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <i class="bi bi-play-circle"></i>Play
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <form style="display: inline;" method="POST" action= "{% url 'music:song_delete' album.id song.id %}">
+                                        <input type = "hidden" name="song_id" value="{{ song.id }}" />
+                                        <button class="btn btn-danger btn-xs" type="submit">
+                                            <i class="far fa-trash-alt"></i>Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+         
+{% endblock %}
