@@ -6,6 +6,10 @@
     background-image: url("images/landingpage.jpg");
 }
 
+a {
+    color: white;
+}
+
 ul.errorlist {
     padding-left: 0;
 }
@@ -84,4 +88,9 @@ ul.errorlist > li {
 
 #song_title{
     color: black;
+}
+
+#BlueLinks{
+    color: white;
+
 }

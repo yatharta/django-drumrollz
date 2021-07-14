@@ -58,7 +58,7 @@ def song_create(request, album_id):
                     "error_message": "The Song Already Exists",
                 }
 
-                return render(request, 'music/form_template.html')
+                return render(request, 'music/song_create.html')
 
         song = form.save(commit=False)
         song.album = album
@@ -72,10 +72,9 @@ def song_create(request, album_id):
                 "error_message": "Audio Type Not Supported",
             }
 
-            return render(request, 'music/form_template.html', context)
+            return render(request, 'music/song_create.html', context)
 
         song.save()
-
         return render(request, 'music/detail.html', {"album": album})
 
     context = {
@@ -83,7 +82,7 @@ def song_create(request, album_id):
         "form": form,
     }
 
-    return render(request, 'music/form_template.html', context)
+    return render(request, 'music/song_create.html', context)
 
 def album_delete(request, album_id):
     album = Album.objects.get(pk=album_id)
@@ -198,7 +197,7 @@ def register(request):
         
     return render(request, 'music/registration.html', context)
 
-def songs(request, filter_by):
+def songs(request):
     if not request.user.is_authenticated:
         return render(request, 'music/login.html')
     else:
@@ -215,5 +214,4 @@ def songs(request, filter_by):
 
         return render(request, 'music/songs.html', {
             "song_list": users_songs,
-            "filter_by": filter_by,
         })
