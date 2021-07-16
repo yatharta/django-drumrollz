@@ -18,8 +18,8 @@
                         {% endif %}
                     </a>
                     <h1 id="album_title">{{ album.album_title }}</h1>
-                    <h2>{{ album.genre }}</h2>
-                    <h2 id="album_artist">{{ album.artist }}</h2>
+                    <h3 id= "album_genre">{{ album.genre }}</h3>
+                    <h3 id="album_artist">{{ album.artist }}</h3>
                 </div>
             </div>
         </div>
@@ -53,9 +53,9 @@
                             <tr>
                                 <td><h6 id="song_title" style="color: black;">{{ song.song_title }}</h6></td>
                                 <td>
-                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                    <a target="_parent" href="{{ song.audio_file.url }}">
                                         <button type="button" class="btn btn-success btn-xs">
-                                            <i class="bi bi-play-circle"></i>Play
+                                            <i class="fas fa-play-circle"></i>Play
                                         </button>
                                     </a>
                                 </td>
@@ -74,6 +74,12 @@
 
                 </div>
             </div>
+
+            <ul class="nav nav-pills">
+                <li><a href="{% url 'music:song_create' album.id %}" style="color:white; text-decoration: none;"><span
+                    class="far fa-plus-square"></span>Add New Song</a>
+                </li>
+            </ul>
 
         </div>
 

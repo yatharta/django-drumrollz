@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.template import loader
 from django.shortcuts import get_object_or_404, render
+from django.contrib import messages
 from .models import Album, Song
 
 # redirect
@@ -21,7 +22,8 @@ def album_create(request):
             album = form.save(commit=False)
             album.user = request.user
             album.album_logo = request.FILES['album_logo']
-            file_type = album.album_logo.url.split('.')[-1].lower()
+            file_type = album.album_logo.url.split('.')[-1]
+            file_type = file_type.lower()
             
             if file_type not in IMAGE_FILE_TYPES:
                 context = {
@@ -29,15 +31,16 @@ def album_create(request):
                     "form": form,
                     "error_message": "Image Type Not Supported",
                 }
-                return render(request, 'music/form_template.html', context)
-            album.save()
+                return render(request, 'music/album_create.html', context)
             
+            album.save()
             return render(request, 'music/detail.html', {'album': album})
-            context = {
+            
+        context = {
                 "form": form,
             } 
 
-            return render(request, 'music/form_template.html', context)
+        return render(request, 'music/album_create.html', context)
 
 
 def song_create(request, album_id):
@@ -55,7 +58,7 @@ def song_create(request, album_id):
                     "error_message": "The Song Already Exists",
                 }
 
-                return render(request, 'music/form_template.html')
+                return render(request, 'music/song_create.html')
 
         song = form.save(commit=False)
         song.album = album
@@ -69,10 +72,9 @@ def song_create(request, album_id):
                 "error_message": "Audio Type Not Supported",
             }
 
-            return render(request, 'music/form_template.html', context)
+            return render(request, 'music/song_create.html', context)
 
         song.save()
-
         return render(request, 'music/detail.html', {"album": album})
 
     context = {
@@ -80,13 +82,14 @@ def song_create(request, album_id):
         "form": form,
     }
 
-    return render(request, 'music/form_template.html', context)
+    return render(request, 'music/song_create.html', context)
 
 def album_delete(request, album_id):
     album = Album.objects.get(pk=album_id)
     album.delete()
     albums = Album.objects.filter(user=request.user)
 
+    # surprising that here object_list is not causing issue!
     return render(request, 'music/index.html', {'albums': albums})
 
 def song_delete(request, album_id, song_id):
@@ -129,7 +132,6 @@ def index(request):
             })
         else:
             return render(request, 'music/index.html', {'object_list': albums})
-
  
 def login_user(request):
     if request.method == "POST":
@@ -142,7 +144,8 @@ def login_user(request):
                 login(request, user)
                 albums = Album.objects.filter(user=request.user)
 
-                return render(request, 'music/index.html', {'albums': albums})
+                # Here a profile/Dashboard will be included later on.
+                return render(request, 'music/index.html', {'object_list': albums})
             else:
                 return render(request, 'music/login.html', {'error_message': "username or password entered does not match"})
         else:
@@ -186,7 +189,7 @@ def register(request):
             if user.is_active:
                 login(request, user)
                 albums = Album.objects.filter(user=request.user)
-                return render(request, 'music/index.html', {'albums': albums})
+                return render(request, 'music/index.html', {'object_list': albums})
     
     context = {
         "form": form,
@@ -194,7 +197,7 @@ def register(request):
         
     return render(request, 'music/registration.html', context)
 
-def songs(request, filter_by):
+def songs(request):
     if not request.user.is_authenticated:
         return render(request, 'music/login.html')
     else:
@@ -211,5 +214,4 @@ def songs(request, filter_by):
 
         return render(request, 'music/songs.html', {
             "song_list": users_songs,
-            "filter_by": filter_by,
         })
