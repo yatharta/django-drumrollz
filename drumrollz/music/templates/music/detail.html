@@ -27,13 +27,9 @@
         <!-- Ride Side Song Info -->
         <div class="col-sm-8 col-md-9">
 
-            <ul class="nav nav-pills">
-                <li role="presentation" class="active"><a href="{% url 'music:detail' album.id %}">View All</a></li>
-            </ul>
-
             <div class="card">
                 <div class="card-body">
-                    <h3>All Songs</h3>
+                    <h3>All Album Songs</h3>
 
                     {% if error_message %}
                         <p><strong>{{error_message}}</strong></p>
@@ -53,17 +49,15 @@
                             <tr>
                                 <td><h6 id="song_title" style="color: black;">{{ song.song_title }}</h6></td>
                                 <td>
-                                    <a target="_parent" href="{{ song.audio_file.url }}">
-                                        <button type="button" class="btn btn-success btn-xs">
-                                            <i class="fas fa-play-circle"></i>Play
-                                        </button>
-                                    </a>
+                                    <audio controls>
+                                        <source target="_parent" src="{{ song.audio_file.url }}">
+                                    </audio>
                                 </td>
                                 <td>
                                     <form style="display: inline;" method="POST" action= "{% url 'music:song_delete' album.id song.id %}">
                                         <input type = "hidden" name="song_id" value="{{ song.id }}" />
                                         <button class="btn btn-danger btn-xs" type="submit">
-                                            <i class="far fa-trash-alt"></i>Delete
+                                            <i class="far fa-trash-alt"></i>
                                         </button>
                                     </form>
                                 </td>
@@ -73,13 +67,8 @@
                     </table>
 
                 </div>
+                <a href="{% url 'music:song_create' album.id %}">Add New Song</a>
             </div>
-
-            <ul class="nav nav-pills">
-                <li><a href="{% url 'music:song_create' album.id %}" style="color:white; text-decoration: none;"><span
-                    class="far fa-plus-square"></span>Add New Song</a>
-                </li>
-            </ul>
 
         </div>
 

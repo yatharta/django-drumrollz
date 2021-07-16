@@ -34,21 +34,23 @@
                                 <td>{{ song.song_title }}</td>
                                 <td>{{ song.album.artist }}</td>
                                 <td>
-                                    <a target="_blank" href="{{ song.audio_file.url }}">
-                                        <button type="button" class="btn btn-success btn-xs">
-                                            <i class="bi bi-play-circle"></i>Play
-                                        </button>
-                                    </a>
+                                    <audio controls>
+                                        <source target="_parent" src="{{ song.audio_file.url }}">
+                                    </audio>
                                 </td>
                                 <td>
-                                    <a href="{% url 'music:detail' song.album.id %}">
-                                        {% if song.album.album_logo %}
-                                        <img id="album_logo_detail" src="{{ song.album.album_logo.url}}"
-                                            class="img-thumbnail">
-                                        {% else %}
-                                        <h3>Image not found</h3>
-                                        {% endif %}
-                                    </a>
+                                    <div class="col-sm-4 col-lg-2">
+                                        <div class="img-thumbnail">
+                                            <a href="{% url 'music:detail' song.album.id %}">
+                                                {% if song.album.album_logo %}
+                                                <img id="album_logo_detail" src="{{ song.album.album_logo.url}}"
+                                                    class="img-responsive">
+                                                {% else %}
+                                                <h3>Image not found</h3>
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
                                     <a href="{% url 'music:detail' song.album.id %}">{{ song.album.album_title }}</a>
                                 </td>
                             </tr>
