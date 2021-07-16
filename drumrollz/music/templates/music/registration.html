@@ -5,8 +5,9 @@
 
 {% block template_body %}
 <div class="container-fluid">
+
     <div class="row justify-content-end">
-        <div class="col-sm-12 col-md-7">
+        <div class="col-sm-12 col-md-3">
             <div class="card">
                 <div class="card-body">
                     <h3>Create New Account</h3>
@@ -15,31 +16,25 @@
                     {% endif %}
                     <form class="form-horizontal" role="form" action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <div class="form-group" id="formGroup">
-                            <label class="control-label col-sm-2" for="id_username">
+                        <div class="mb-3" id="formGroup">
+                            <label class="form-label" for="id_username">
                                 Username:
                             </label>
-                            <div class="col-sm-10">
-                                <input id="id_username" maxlength="30" name="username" type="text">
-                            </div>
+                            <input id="id_username" class="form-control" maxlength="30" name="username" type="text">
                         </div>
-                        <div class="form-group" id="formGroup">
-                            <label class="control-label col-sm-2" for="id_email">
+                        <div class="mb-3" id="formGroup">
+                            <label class="form-label" for="id_email">
                                 Email:
                             </label>
-                            <div class="col-sm-10">
-                                <input id="id_email" maxlength="30" name="email" type="text">
-                            </div>
+                            <input id="id_email" class="form-control" maxlength="30" name="email" type="text">
                         </div>
-                        <div class="form-group" id="formGroup">
-                            <label class="control-label col-sm-2" for="id_password">
+                        <div class="mb-3" id="formGroup">
+                            <label class="form-label" for="id_password">
                                 Password:
                             </label>
-                            <div class="col-sm-10">
-                                <input id="id_password" maxlength="30" name="password" type="password">
-                            </div>
+                            <input id="id_password" class="form-control" maxlength="30" name="password" type="password">
                         </div>
-                        <div class="form-group" id="formGroup">
+                        <div class="mb-3" id="formGroup">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
