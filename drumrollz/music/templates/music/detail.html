@@ -17,9 +17,8 @@
                             <h3>Image not found</h3>
                         {% endif %}
                     </a>
-                    <h1 id="album_title">{{ album.album_title }}</h1>
+                    <h1 id="album_artist">{{ album.artist }}</h1>
                     <h3 id= "album_genre">{{ album.genre }}</h3>
-                    <h3 id="album_artist">{{ album.artist }}</h3>
                 </div>
             </div>
         </div>
@@ -29,7 +28,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h3>All Album Songs</h3>
+                    <h1 id="album_title">{{ album.album_title }}</h1>
 
                     {% if error_message %}
                         <p><strong>{{error_message}}</strong></p>
